@@ -11,7 +11,7 @@ namespace MoviesService.API.Controllers
         /// <summary>
         /// Retrieves all movies.
         /// </summary>
-        /// <returns>A collection of movies</returns>
+        /// <returns>A list of Movies</returns>
         [HttpGet]
         public async Task<IEnumerable<Movie>> GetAll()
         {
@@ -22,7 +22,7 @@ namespace MoviesService.API.Controllers
         /// Retrieves a movie by ID.
         /// </summary>
         /// <param name="movieId"></param>
-        /// <returns>Movie</returns>
+        /// <returns>A Movie object</returns>
         [HttpGet("{movieId}")]
         public async Task<ActionResult<Movie>> Get(Guid movieId)
         {
