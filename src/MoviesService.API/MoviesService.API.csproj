@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Else.Convey.CQRS.Queries" Version="1.0.124" />
+    <PackageReference Include="Else.Convey.Logging.CQRS" Version="1.0.124" />
+    <PackageReference Include="Else.Convey.WebApi" Version="1.0.124" />
+    <PackageReference Include="Else.Convey.WebApi.CQRS" Version="1.0.124" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MoviesService.Application\MoviesService.Application.csproj" />
   </ItemGroup>
 
 </Project>

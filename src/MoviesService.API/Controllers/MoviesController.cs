@@ -8,6 +8,8 @@ namespace MoviesService.API.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
+
+
         /// <summary>
         /// Retrieves all movies.
         /// </summary>
