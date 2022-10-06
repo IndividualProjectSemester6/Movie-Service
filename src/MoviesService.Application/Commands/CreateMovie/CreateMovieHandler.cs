@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MoviesService.Application.Interfaces.Logic.Commands;
+﻿using Convey.CQRS.Commands;
 using MoviesService.Application.Interfaces.Repositories;
 using MoviesService.Domain.Entities;
 
 namespace MoviesService.Application.Commands.CreateMovie
 {
-    public class CreateMovieHandler : ICommandHandler<CreateMovie>
+    public class CreateMovieHandler : ICommandHandler<CreateMovieCommand>
     {
         private readonly ICommandMovieRepository _repository;
         public CreateMovieHandler(ICommandMovieRepository repository)
@@ -17,21 +12,10 @@ namespace MoviesService.Application.Commands.CreateMovie
             _repository = repository;
         }
 
-        public Task HandleAsync(CreateMovie model)
+        public Task HandleAsync(CreateMovieCommand command, CancellationToken cancellationToken = new CancellationToken())
         {
-            if (model == null)
-            {
-                throw new Exception("Error, please create a movie.");
-            }
-
-            Movie movie = new Movie()
-            {
-                Id = Guid.NewGuid(),
-                Name = model.Name,
-                Description = model.Description
-            };
-
-            this._repository.CreateMovie(movie);
+            var movie = new MovieDto() {Id = command.Id, Name = command.Name, Description = command.Description};
+            _repository.CreateMovie(movie);
             return Task.CompletedTask;
         }
     }

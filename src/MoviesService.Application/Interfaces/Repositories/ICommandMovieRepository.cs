@@ -9,6 +9,6 @@ namespace MoviesService.Application.Interfaces.Repositories
 {
     public interface ICommandMovieRepository
     {
-        void CreateMovie(Movie movie);
+        void CreateMovie(MovieDto movie);
     }
 }

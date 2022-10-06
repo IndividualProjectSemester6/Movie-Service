@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MoviesService.Domain.Entities
 {
-    public class Movie
+    public class MovieDto
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

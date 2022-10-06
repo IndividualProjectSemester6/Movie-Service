@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Convey.CQRS.Commands" Version="1.0.541" />
+    <PackageReference Include="Convey.CQRS.Queries" Version="1.0.541" />
+    <PackageReference Include="Convey.HTTP.RestEase" Version="1.0.541" />
+    <PackageReference Include="Convey.WebApi" Version="1.0.541" />
+    <PackageReference Include="Else.Convey.CQRS.Queries" Version="1.0.124" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MoviesService.Domain\MoviesService.Domain.csproj" />
   </ItemGroup>
 

@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Else.Convey" Version="1.0.124" />
+    <PackageReference Include="Else.Convey.CQRS.Commands" Version="1.0.124" />
     <PackageReference Include="Else.Convey.CQRS.Queries" Version="1.0.124" />
     <PackageReference Include="Else.Convey.Logging.CQRS" Version="1.0.124" />
     <PackageReference Include="Else.Convey.WebApi" Version="1.0.124" />

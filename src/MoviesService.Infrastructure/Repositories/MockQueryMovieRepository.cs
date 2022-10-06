@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MoviesService.Application.Interfaces.Repositories;
+﻿using MoviesService.Application.Interfaces.Repositories;
 using MoviesService.Domain.Entities;
 
 namespace MoviesService.Infrastructure.Repositories
@@ -11,25 +6,25 @@ namespace MoviesService.Infrastructure.Repositories
     public class MockQueryMovieRepository : IQueryMovieRepository
     {
 
-        public List<Movie> MovieList { get; set; }
+        public List<MovieDto> MovieList { get; set; }
 
         public MockQueryMovieRepository()
         {
-            MovieList = new List<Movie>()
+            MovieList = new List<MovieDto>()
             {
-                new Movie()
+                new MovieDto()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = new Guid("93a87c60-7e94-48e9-8bec-5a23b81f8631"),
                     Name = "Star Wars VI: Return of the Jedi",
                     Description = "Star Wars"
                 },
-                new Movie()
+                new MovieDto()
                 {
                     Id = Guid.NewGuid(),
                     Name = "Dune",
                     Description = "Dune"
                 },
-                new Movie()
+                new MovieDto()
                 {
                     Id = Guid.NewGuid(),
                     Name = "Justice League",
@@ -38,15 +33,15 @@ namespace MoviesService.Infrastructure.Repositories
             };
         }
 
-        public IEnumerable<Movie> GetAll()
+        public async Task<IEnumerable<MovieDto>> GetAll()
         {
             return MovieList;
         }
 
-        public Movie Get(Guid id)
+        public async Task<MovieDto> Get(Guid id)
         {
-            Movie movie = null;
-            foreach (Movie m in MovieList)
+            MovieDto movie = null;
+            foreach (var m in MovieList)
             {
                 if (m.Id == id)
                 {

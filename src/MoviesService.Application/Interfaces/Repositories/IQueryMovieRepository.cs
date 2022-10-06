@@ -9,8 +9,8 @@ namespace MoviesService.Application.Interfaces.Repositories
 {
     public interface IQueryMovieRepository
     {
-        IEnumerable<Movie> GetAll();
-        Movie Get(Guid id);
+        Task<IEnumerable<MovieDto>> GetAll();
+        Task<MovieDto> Get(Guid id);
 
     }
 }
