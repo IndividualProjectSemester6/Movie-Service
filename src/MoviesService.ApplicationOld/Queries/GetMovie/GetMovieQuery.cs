@@ -1,7 +1,7 @@
 ﻿using Convey.CQRS.Queries;
 using MoviesService.Domain.Entities;
 
-namespace MoviesService.Application.Queries
+namespace MoviesService.Application.Queries.GetMovie
 {
     public class GetMovieQuery : IQuery<MovieDto>
     {

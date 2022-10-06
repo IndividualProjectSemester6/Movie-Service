@@ -13,11 +13,15 @@
     <PackageReference Include="Else.Convey.Logging.CQRS" Version="1.0.124" />
     <PackageReference Include="Else.Convey.WebApi" Version="1.0.124" />
     <PackageReference Include="Else.Convey.WebApi.CQRS" Version="1.0.124" />
+    <PackageReference Include="MediatR" Version="11.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjectionFixed" Version="5.1.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MoviesService.Application\MoviesService.Application.csproj" />
+    <ProjectReference Include="..\MoviesService.Application\MoviesService.ApplicationOld.csproj" />
+    <ProjectReference Include="..\MoviesService.Infrastructure\MoviesService.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

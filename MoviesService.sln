@@ -5,11 +5,19 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesService.API", "src\MoviesService.API\MoviesService.API.csproj", "{3DF83833-24B3-4F13-992E-DF99571EEB13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesService.Application", "src\MoviesService.Application\MoviesService.Application.csproj", "{B602B503-2C78-4D74-847B-72898C80F420}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesService.ApplicationOld", "src\MoviesService.Application\MoviesService.ApplicationOld.csproj", "{B602B503-2C78-4D74-847B-72898C80F420}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesService.Domain", "src\MoviesService.Domain\MoviesService.Domain.csproj", "{35480E9E-651C-4847-8D18-0AF83C8CAFF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesService.Domain", "src\MoviesService.Domain\MoviesService.Domain.csproj", "{35480E9E-651C-4847-8D18-0AF83C8CAFF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesService.Infrastructure", "src\MoviesService.Infrastructure\MoviesService.Infrastructure.csproj", "{4D6895CF-9B83-4959-BD83-A95C5393AE33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoviesService.Infrastructure", "src\MoviesService.Infrastructure\MoviesService.Infrastructure.csproj", "{4D6895CF-9B83-4959-BD83-A95C5393AE33}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6C3D8EAB-8F50-4BBE-AD00-6531C2146FC9} = {6C3D8EAB-8F50-4BBE-AD00-6531C2146FC9}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviesService.Application", "src\MoviesService.Application\MoviesService.Application\MoviesService.Application.csproj", "{6C3D8EAB-8F50-4BBE-AD00-6531C2146FC9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{35480E9E-651C-4847-8D18-0AF83C8CAFF4} = {35480E9E-651C-4847-8D18-0AF83C8CAFF4}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +41,10 @@ Global
 		{4D6895CF-9B83-4959-BD83-A95C5393AE33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D6895CF-9B83-4959-BD83-A95C5393AE33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D6895CF-9B83-4959-BD83-A95C5393AE33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C3D8EAB-8F50-4BBE-AD00-6531C2146FC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C3D8EAB-8F50-4BBE-AD00-6531C2146FC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C3D8EAB-8F50-4BBE-AD00-6531C2146FC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C3D8EAB-8F50-4BBE-AD00-6531C2146FC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

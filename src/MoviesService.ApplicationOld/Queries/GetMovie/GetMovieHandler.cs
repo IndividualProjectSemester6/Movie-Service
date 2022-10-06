@@ -2,7 +2,7 @@
 using MoviesService.Application.Interfaces.Repositories;
 using MoviesService.Domain.Entities;
 
-namespace MoviesService.Application.Queries
+namespace MoviesService.Application.Queries.GetMovie
 {
     public class GetMovieHandler : IQueryHandler<GetMovieQuery, MovieDto>
     {

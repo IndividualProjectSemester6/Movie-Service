@@ -1,8 +1,7 @@
-
-
-using Convey;
-using Convey.CQRS.Commands;
-using Convey.CQRS.Queries;
+using MoviesService.Application.Interfaces.Repositories;
+using MoviesService.Application.Interfaces.Services;
+using MoviesService.Application.Services;
+using MoviesService.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,11 +13,18 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Dependency injections via Convey:
-builder.Services.AddConvey()
+/*builder.Services.AddConvey()
     .AddCommandHandlers()
     .AddInMemoryCommandDispatcher()
     .AddQueryHandlers()
-    .AddInMemoryQueryDispatcher();
+    .AddInMemoryQueryDispatcher(); */
+
+// DI via MediatR
+//builder.Services.AddMediatR(typeof(Program).Assembly);
+//builder.Services.AddMediatR(typeof(IRequestHandler<GetAllMoviesQuery, IEnumerable<MovieDto>>));
+//builder.Services.AddScoped<IRequestHandler<GetAllMoviesQuery, IEnumerable<MovieDto>>, GetAllMoviesHandler>();
+builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IMovieRepository, MockQueryMovieRepository>();
 
 var app = builder.Build();
 

@@ -3,7 +3,7 @@ using MoviesService.Domain.Entities;
 
 namespace MoviesService.Infrastructure.Repositories
 {
-    public class MockQueryMovieRepository : IQueryMovieRepository
+    public class MockQueryMovieRepository : IMovieRepository//IQueryMovieRepository
     {
 
         public List<MovieDto> MovieList { get; set; }
@@ -50,6 +50,21 @@ namespace MoviesService.Infrastructure.Repositories
             }
 
             return movie;
+        }
+
+        public void Create(MovieDto entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(MovieDto entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

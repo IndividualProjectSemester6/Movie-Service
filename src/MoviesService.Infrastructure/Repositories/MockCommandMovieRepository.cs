@@ -3,7 +3,7 @@ using MoviesService.Domain.Entities;
 
 namespace MoviesService.Infrastructure.Repositories
 {
-    public class MockCommandMovieRepository : ICommandMovieRepository
+    public class MockCommandMovieRepository //ICommandMovieRepository
     {
         private readonly MockQueryMovieRepository _repository;
 
