@@ -19,9 +19,10 @@ builder.Services.AddMediatR(new Type[]
     typeof(QueriesMediatR.GetAllMovies.GetAllMoviesQuery),
     typeof(QueriesMediatR.GetMovie.GetMovieQuery)
 });
+
+// Inject normal dependencies:
 builder.Services.AddScoped<ICommandMovieRepository, MockCommandMovieRepository>();
 builder.Services.AddScoped<IQueryMovieRepository, MockQueryMovieRepository>();
-
 
 var app = builder.Build();
 
