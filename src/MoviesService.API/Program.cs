@@ -1,3 +1,8 @@
+using MediatR;
+using MoviesService.Application.Interfaces.Repositories;
+using MoviesService.Infrastructure.Repositories;
+using CommandsMediatR = MoviesService.Application.Commands;
+using QueriesMediatR = MoviesService.Application.Queries;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +11,18 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Dependency injections via MediatR:
+builder.Services.AddMediatR(new Type[]
+{
+    typeof(CommandsMediatR.CreateMovie.CreateMovieCommand),
+    typeof(QueriesMediatR.GetAllMovies.GetAllMoviesQuery),
+    typeof(QueriesMediatR.GetMovie.GetMovieQuery)
+});
+
+// Inject normal dependencies:
+builder.Services.AddScoped<ICommandMovieRepository, MockCommandMovieRepository>();
+builder.Services.AddScoped<IQueryMovieRepository, MockQueryMovieRepository>();
 
 var app = builder.Build();
 
