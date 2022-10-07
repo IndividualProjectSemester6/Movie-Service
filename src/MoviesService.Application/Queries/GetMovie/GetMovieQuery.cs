@@ -1,9 +1,9 @@
-﻿using Convey.CQRS.Queries;
+﻿using MediatR;
 using MoviesService.Domain.Entities;
 
-namespace MoviesService.Application.Queries
+namespace MoviesService.Application.Queries.GetMovie
 {
-    public class GetMovieQuery : IQuery<MovieDto>
+    public class GetMovieQuery : IRequest<MovieDto>
     {
         public Guid Id { get; }
 

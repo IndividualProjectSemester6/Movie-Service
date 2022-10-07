@@ -1,10 +1,10 @@
-﻿using Convey.CQRS.Queries;
+﻿using MediatR;
 using MoviesService.Application.Interfaces.Repositories;
 using MoviesService.Domain.Entities;
 
-namespace MoviesService.Application.Queries
+namespace MoviesService.Application.Queries.GetMovie
 {
-    public class GetMovieHandler : IQueryHandler<GetMovieQuery, MovieDto>
+    public class GetMovieHandler : IRequestHandler<GetMovieQuery, MovieDto>
     {
         private readonly IQueryMovieRepository _repository;
 
@@ -13,7 +13,7 @@ namespace MoviesService.Application.Queries
             _repository = repository;
         }
 
-        public async Task<MovieDto> HandleAsync(GetMovieQuery query)
+        public async Task<MovieDto> Handle(GetMovieQuery query, CancellationToken cancellationToken)
         {
             var movie = await _repository.Get(query.Id);
             return movie;

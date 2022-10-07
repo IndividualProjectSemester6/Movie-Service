@@ -1,10 +1,10 @@
-﻿using Convey.CQRS.Commands;
+﻿using MediatR;
 using MoviesService.Application.Interfaces.Repositories;
 using MoviesService.Domain.Entities;
 
 namespace MoviesService.Application.Commands.CreateMovie
 {
-    public class CreateMovieHandler : ICommandHandler<CreateMovieCommand>
+    public class CreateMovieHandler : IRequestHandler<CreateMovieCommand, bool>
     {
         private readonly ICommandMovieRepository _repository;
         public CreateMovieHandler(ICommandMovieRepository repository)
@@ -12,11 +12,12 @@ namespace MoviesService.Application.Commands.CreateMovie
             _repository = repository;
         }
 
-        public Task HandleAsync(CreateMovieCommand command, CancellationToken cancellationToken = new CancellationToken())
+        public async Task<bool> Handle(CreateMovieCommand command, CancellationToken cancellationToken)
         {
-            var movie = new MovieDto() {Id = command.Id, Name = command.Name, Description = command.Description};
+            var movie = new MovieDto() { Id = command.Id, Name = command.Name, Description = command.Description };
             _repository.CreateMovie(movie);
-            return Task.CompletedTask;
+
+            return true;
         }
     }
 }

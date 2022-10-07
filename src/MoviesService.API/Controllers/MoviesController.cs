@@ -1,9 +1,10 @@
-﻿using Convey.CQRS.Commands;
-using Convey.CQRS.Queries;
+﻿
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MoviesService.API.Models;
 using MoviesService.Application.Commands.CreateMovie;
-using MoviesService.Application.Queries;
+using MoviesService.Application.Queries.GetAllMovies;
+using MoviesService.Application.Queries.GetMovie;
 
 namespace MoviesService.API.Controllers
 {
@@ -11,13 +12,11 @@ namespace MoviesService.API.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
-        private readonly IQueryDispatcher _qDispatcher;
-        private readonly ICommandDispatcher _cDispatcher;
+        private readonly IMediator _mediator;
 
-        public MoviesController(IQueryDispatcher qDispatcher, ICommandDispatcher cDispatcher)
+        public MoviesController(IMediator mediator)
         {
-            _qDispatcher = qDispatcher;
-            _cDispatcher = cDispatcher;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -27,7 +26,15 @@ namespace MoviesService.API.Controllers
         [HttpGet]
         public async Task<IEnumerable<Movie>> GetAll()
         {
-            throw new NotImplementedException();
+            var query = new GetAllMoviesQuery();
+            var result = await _mediator.Send(query);
+            List<Movie> movies = new List<Movie>();
+            foreach (var movie in result)
+            {
+                movies.Add(new Movie(movie.Id, movie.Name, movie.Description));
+            }
+
+            return movies;
         }
 
         /// <summary>
@@ -38,18 +45,24 @@ namespace MoviesService.API.Controllers
         [HttpGet("{movieId}")]
         public async Task<ActionResult<Movie>> Get(Guid movieId)
         {
-            var result = await _qDispatcher.QueryAsync(new GetMovieQuery(movieId));
+            var result = await _mediator.Send(new GetMovieQuery(movieId));
             var movie = new Movie() {Id = result.Id, Name = result.Name, Description = result.Description};
 
             return new OkObjectResult(movie);
         }
 
+        /// <summary>
+        /// Creates a movie entity.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="description"></param>
+        /// <returns>HTTP Status Code 200 on success.</returns>
         [HttpPost]
-        public async Task<ActionResult<Movie>> Create(string name, string description)
+        public async Task<ActionResult> Create(string name, string description)
         {
             Movie movie = new Movie(Guid.NewGuid(), name, description);
-            var cmc = new CreateMovieCommand(movie.Id, movie.Name, movie.Description);
-            //var result = await _cDispatcher.SendAsync(cmc);
+            var command = new CreateMovieCommand(movie.Id, movie.Name, movie.Description);
+            var response = await _mediator.Send(command);
             return new OkResult();
         }
 

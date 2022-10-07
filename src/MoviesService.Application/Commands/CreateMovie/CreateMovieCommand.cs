@@ -1,10 +1,10 @@
 ﻿using System.Text.Json.Serialization;
-using Convey.CQRS.Commands;
+using MediatR;
 
 
 namespace MoviesService.Application.Commands.CreateMovie
 {
-    public class CreateMovieCommand : ICommand
+    public class CreateMovieCommand : IRequest<bool>
     {
         public Guid Id { get; }
         public string Name { get; }
