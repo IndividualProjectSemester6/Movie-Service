@@ -45,9 +45,13 @@ namespace MoviesService.API.Controllers
         public async Task<ActionResult<Movie>> Get(Guid movieId)
         {
             var result = await _mediator.Send(new GetMovieQuery(movieId));
-            var movie = new Movie() {Id = result.Id, Name = result.Name, Description = result.Description};
+            if (result != null)
+            {
+                var movie = new Movie() { Id = result.Id, Name = result.Name, Description = result.Description };
+                return new OkObjectResult(movie);
+            }
 
-            return new OkObjectResult(movie);
+            return NotFound();
         }
 
         /// <summary>
@@ -62,6 +66,9 @@ namespace MoviesService.API.Controllers
             Movie movie = new Movie(Guid.NewGuid(), name, description);
             var command = new CreateMovieCommand(movie.Id, movie.Name, movie.Description);
             var response = await _mediator.Send(command);
+            if (!response)
+                return new BadRequestResult();
+
             return new OkResult();
         }
 
