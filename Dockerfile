@@ -3,22 +3,12 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 WORKDIR /app
     
 # Copy csproj and restore as distinct layers
-#COPY *.sln .
 COPY . .
-#COPY /src/MoviesService.API/*.csproj .
-#COPY /src/MoviesService.Application/*.csproj .
-#COPY /src/MoviesService.Domain/*.csproj .
-#COPY /src/MoviesService.Infrastructure/*.csproj .
 
 #COPY *.csproj ./
 RUN dotnet restore
     
-# Copy everything else and build
-#COPY . app/
-#COPY /src/MoviesService.API/. /MoviesService.API/
-#COPY /src/MoviesService.Application/. /MoviesService.Application/
-#COPY /src/MoviesService.Domain/. /MoviesService.Domain/
-#COPY /src/MoviesService.Infrastructure/. /MoviesService.Infrastructure/
+# Build project
 RUN dotnet publish -c Release -o out
     
 # Build runtime image
