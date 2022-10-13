@@ -1,8 +1,11 @@
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using MoviesService.API.Helpers;
 using MoviesService.Application.Interfaces.Repositories;
 using MoviesService.Infrastructure.Repositories;
 using CommandsMediatR = MoviesService.Application.Commands;
 using QueriesMediatR = MoviesService.Application.Queries;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -18,6 +21,12 @@ builder.Services.AddMediatR(new Type[]
     typeof(CommandsMediatR.CreateMovie.CreateMovieCommand),
     typeof(QueriesMediatR.GetAllMovies.GetAllMoviesQuery),
     typeof(QueriesMediatR.GetMovie.GetMovieQuery)
+});
+
+// Add Entity Framework for MySQL to project:
+builder.Services.AddEntityFrameworkMySql().AddDbContext<DataContext>(options =>
+{
+    options.UseMySQL(builder.Configuration.GetConnectionString("WebApiDatabase"));
 });
 
 // Inject normal dependencies:
