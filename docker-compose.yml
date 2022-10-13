@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+# Movies API
+  movies:
+    image: localhost:5000/moviesservice:V2
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 5000:80

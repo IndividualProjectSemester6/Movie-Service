@@ -1,5 +1,4 @@
-﻿
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using MoviesService.API.Models;
 using MoviesService.Application.Commands.CreateMovie;
