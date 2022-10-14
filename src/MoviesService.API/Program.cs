@@ -19,6 +19,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(new Type[]
 {
     typeof(CommandsMediatR.CreateMovie.CreateMovieCommand),
+    typeof(CommandsMediatR.DeleteMovie.DeleteMovieCommand),
     typeof(QueriesMediatR.GetAllMovies.GetAllMoviesQuery),
     typeof(QueriesMediatR.GetMovie.GetMovieQuery)
 });
