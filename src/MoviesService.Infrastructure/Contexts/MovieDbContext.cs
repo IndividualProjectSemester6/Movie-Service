@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MoviesService.Domain.Entities;
 
-namespace MoviesService.Infrastructure
+namespace MoviesService.Infrastructure.Contexts
 {
     public class MovieDbContext : DbContext
     {

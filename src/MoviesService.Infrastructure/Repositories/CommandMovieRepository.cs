@@ -1,5 +1,6 @@
 ﻿using MoviesService.Application.Interfaces.Repositories;
 using MoviesService.Domain.Entities;
+using MoviesService.Infrastructure.Contexts;
 
 namespace MoviesService.Infrastructure.Repositories
 {

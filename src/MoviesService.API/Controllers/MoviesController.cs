@@ -71,7 +71,5 @@ namespace MoviesService.API.Controllers
 
             return new OkResult();
         }
-
-
     }
 }
