@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-# Movies API
+  # Movies API
   movies:
     image: localhost:5000/moviesservice:V2
     build:
@@ -9,3 +9,34 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - 5000:80
+
+  # MySQL database
+  db:
+    container_name: "movies_db"
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Admin123"
+      ACCEPT_EULA: "Y"
+  #db:
+    #image: mysql:latest
+    #container_name: mysql-db
+    #environment:
+      #- MYSQL_ALLOW_EMPTY_PASSWORD=1
+    #ports:
+      #- 3307:3307
+    #restart: always
+
+  # PhpMyAdmin
+  #phpmyadmin:
+    #image: phpmyadmin/phpmyadmin:latest
+    #container_name: my-php-myadmin
+    #ports:
+     # - 8082:80
+    #restart: always
+
+    #depends_on:
+      #- db
+    #environment:
+      #SPRING_DATASOURCE_USERNAME: root

@@ -1,8 +1,11 @@
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using MoviesService.Application.Interfaces.Repositories;
+using MoviesService.Infrastructure.Contexts;
 using MoviesService.Infrastructure.Repositories;
 using CommandsMediatR = MoviesService.Application.Commands;
 using QueriesMediatR = MoviesService.Application.Queries;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -16,13 +19,20 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(new Type[]
 {
     typeof(CommandsMediatR.CreateMovie.CreateMovieCommand),
+    typeof(CommandsMediatR.DeleteMovie.DeleteMovieCommand),
     typeof(QueriesMediatR.GetAllMovies.GetAllMoviesQuery),
     typeof(QueriesMediatR.GetMovie.GetMovieQuery)
 });
 
 // Inject normal dependencies:
-builder.Services.AddScoped<ICommandMovieRepository, MockCommandMovieRepository>();
-builder.Services.AddScoped<IQueryMovieRepository, MockQueryMovieRepository>();
+builder.Services.AddScoped<ICommandMovieRepository, CommandMovieRepository>();
+builder.Services.AddScoped<IQueryMovieRepository, QueryMovieRepository>();
+
+// Add Entity Framework for SQL to project:
+ConfigurationManager configuration = builder.Configuration;
+builder.Services.AddDbContext<MovieDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), 
+    b => b.MigrationsAssembly("MoviesService.API"))
+);
 
 var app = builder.Build();
 

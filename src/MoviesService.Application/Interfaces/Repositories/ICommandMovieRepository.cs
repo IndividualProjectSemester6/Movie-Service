@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MoviesService.Domain.Entities;
+﻿using MoviesService.Domain.Entities;
 
 namespace MoviesService.Application.Interfaces.Repositories
 {
     public interface ICommandMovieRepository
     {
-        void CreateMovie(MovieDto movie);
+        Task<MovieDto> CreateMovie(MovieDto movie);
+        Task<MovieDto> DeleteMovie(Guid id);
     }
 }

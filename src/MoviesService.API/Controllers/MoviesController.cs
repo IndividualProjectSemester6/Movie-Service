@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MoviesService.API.Models;
 using MoviesService.Application.Commands.CreateMovie;
+using MoviesService.Application.Commands.DeleteMovie;
 using MoviesService.Application.Queries.GetAllMovies;
 using MoviesService.Application.Queries.GetMovie;
 
@@ -66,12 +67,23 @@ namespace MoviesService.API.Controllers
             Movie movie = new Movie(Guid.NewGuid(), name, description);
             var command = new CreateMovieCommand(movie.Id, movie.Name, movie.Description);
             var response = await _mediator.Send(command);
-            if (!response)
+            if (response == null)
                 return new BadRequestResult();
 
             return new OkResult();
         }
 
-
+        /// <summary>
+        /// Deletes a movie entity
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>HTTP Status Code 200</returns>
+        [HttpDelete]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            var command = new DeleteMovieCommand(id);
+            var response = await _mediator.Send(command);
+            return new OkObjectResult(response);
+        }
     }
 }
