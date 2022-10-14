@@ -66,7 +66,7 @@ namespace MoviesService.API.Controllers
             Movie movie = new Movie(Guid.NewGuid(), name, description);
             var command = new CreateMovieCommand(movie.Id, movie.Name, movie.Description);
             var response = await _mediator.Send(command);
-            if (!response)
+            if (response == null)
                 return new BadRequestResult();
 
             return new OkResult();

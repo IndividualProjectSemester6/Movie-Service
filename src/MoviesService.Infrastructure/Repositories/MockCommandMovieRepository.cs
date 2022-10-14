@@ -11,9 +11,10 @@ namespace MoviesService.Infrastructure.Repositories
         {
             _repository = new MockQueryMovieRepository();
         }
-        public void CreateMovie(MovieDto movie)
+        public async Task<MovieDto> CreateMovie(MovieDto movie)
         {
             _repository.MovieList.Add(movie);
+            return movie;
         }
     }
 }
