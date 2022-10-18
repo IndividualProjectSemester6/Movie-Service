@@ -4,11 +4,11 @@ using MoviesService.Domain.Entities;
 
 namespace MoviesService.Application.Commands.DeleteMovie
 {
-    public class DeleteMovieCommandHandler : IRequestHandler<DeleteMovieCommand, MovieDto>
+    public class DeleteMovieHandler : IRequestHandler<DeleteMovieCommand, MovieDto>
     {
         private readonly ICommandMovieRepository _repository;
 
-        public DeleteMovieCommandHandler(ICommandMovieRepository repository)
+        public DeleteMovieHandler(ICommandMovieRepository repository)
         {
             _repository = repository;
         }

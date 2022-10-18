@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using MoviesService.API.Models;
 using MoviesService.Application.Commands.CreateMovie;
 using MoviesService.Application.Commands.DeleteMovie;
+using MoviesService.Application.Commands.UpdateMovie;
 using MoviesService.Application.Queries.GetAllMovies;
 using MoviesService.Application.Queries.GetMovie;
+using MoviesService.Domain.Entities;
 
 namespace MoviesService.API.Controllers
 {
@@ -24,7 +26,7 @@ namespace MoviesService.API.Controllers
         /// </summary>
         /// <returns>A list of Movies</returns>
         [HttpGet]
-        public async Task<IEnumerable<Movie>> GetAll()
+        public async Task<ActionResult<IEnumerable<Movie>>> GetAll()
         {
             var query = new GetAllMoviesQuery();
             var result = await _mediator.Send(query);
@@ -34,7 +36,7 @@ namespace MoviesService.API.Controllers
                 movies.Add(new Movie(movie.Id, movie.Name, movie.Description));
             }
 
-            return movies;
+            return Ok(movies);
         }
 
         /// <summary>
@@ -49,7 +51,7 @@ namespace MoviesService.API.Controllers
             if (result != null)
             {
                 var movie = new Movie() { Id = result.Id, Name = result.Name, Description = result.Description };
-                return new OkObjectResult(movie);
+                return Ok(movie);
             }
 
             return NotFound();
@@ -68,9 +70,28 @@ namespace MoviesService.API.Controllers
             var command = new CreateMovieCommand(movie.Id, movie.Name, movie.Description);
             var response = await _mediator.Send(command);
             if (response == null)
-                return new BadRequestResult();
+                return BadRequest();
 
-            return new OkResult();
+            return Ok();
+        }
+
+        /// <summary>
+        /// Updates movie entity
+        /// </summary>
+        /// <param name="movie"></param>
+        /// <returns>Response object with the updated record</returns>
+        [HttpPut]
+        public async Task<ActionResult> Update(Movie movie)
+        {
+            var dto = new MovieDto() {Id = movie.Id, Name = movie.Name, Description = movie.Description};
+            var command = new UpdateMovieCommand(dto);
+            var response = await _mediator.Send(command);
+            if (response == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(response);
         }
 
         /// <summary>
@@ -83,7 +104,7 @@ namespace MoviesService.API.Controllers
         {
             var command = new DeleteMovieCommand(id);
             var response = await _mediator.Send(command);
-            return new OkObjectResult(response);
+            return Ok(response);
         }
     }
 }
