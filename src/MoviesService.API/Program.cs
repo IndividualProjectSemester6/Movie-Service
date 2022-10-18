@@ -20,6 +20,7 @@ builder.Services.AddMediatR(new Type[]
 {
     typeof(CommandsMediatR.CreateMovie.CreateMovieCommand),
     typeof(CommandsMediatR.DeleteMovie.DeleteMovieCommand),
+    typeof(CommandsMediatR.UpdateMovie.UpdateMovieCommand),
     typeof(QueriesMediatR.GetAllMovies.GetAllMoviesQuery),
     typeof(QueriesMediatR.GetMovie.GetMovieQuery)
 });

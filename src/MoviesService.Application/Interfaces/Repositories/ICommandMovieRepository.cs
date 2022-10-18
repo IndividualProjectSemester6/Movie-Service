@@ -6,5 +6,6 @@ namespace MoviesService.Application.Interfaces.Repositories
     {
         Task<MovieDto> CreateMovie(MovieDto movie);
         Task<MovieDto> DeleteMovie(Guid id);
+        Task<MovieDto> UpdateMovie(MovieDto movie);
     }
 }
