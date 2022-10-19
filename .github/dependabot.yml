@@ -31,7 +31,7 @@ updates:
     
     # Entities project:
   - package-ecosystem: "nuget"
-    directory: "src/MoviesService.Entities/"
+    directory: "src/MoviesService.Domain/"
     schedule:
       interval: "weekly"
       day: "wednesday"
