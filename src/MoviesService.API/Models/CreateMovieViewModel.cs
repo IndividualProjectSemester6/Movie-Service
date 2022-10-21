@@ -1,20 +1,16 @@
 ﻿namespace MoviesService.API.Models
 {
-    public class Movie
+    public class CreateMovieViewModel
     {
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
-
         public string Description { get; set; }
 
-        public Movie()
+        public CreateMovieViewModel()
         {
         }
 
-        public Movie(Guid id, string name, string description)
+        public CreateMovieViewModel(string name, string description)
         {
-            Id = id;
             Name = name;
             Description = description;
         }
