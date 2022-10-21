@@ -99,12 +99,16 @@ namespace MoviesService.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>HTTP Status Code 200</returns>
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(Guid id)
         {
             var command = new DeleteMovieCommand(id);
             var response = await _mediator.Send(command);
-            return Ok(response);
+            if (response == null)
+            {
+                return NotFound();
+            }
+            return Ok();
         }
     }
 }

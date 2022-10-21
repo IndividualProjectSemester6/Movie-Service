@@ -4,7 +4,7 @@ using MoviesService.Domain.Entities;
 
 namespace MoviesService.Application.Commands.UpdateMovie
 {
-    public class UpdateMovieHandler : IRequestHandler<UpdateMovieCommand, MovieDto>
+    public class UpdateMovieHandler : IRequestHandler<UpdateMovieCommand, MovieDto?>
     {
         private readonly ICommandMovieRepository _repository;
 
@@ -13,7 +13,7 @@ namespace MoviesService.Application.Commands.UpdateMovie
             _repository = repository;
         }
 
-        public async Task<MovieDto> Handle(UpdateMovieCommand command, CancellationToken cancellationToken)
+        public async Task<MovieDto?> Handle(UpdateMovieCommand command, CancellationToken cancellationToken)
         {
             return await _repository.UpdateMovie(command.ExistingMovie);
         }

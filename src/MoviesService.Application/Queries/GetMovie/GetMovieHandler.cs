@@ -4,7 +4,7 @@ using MoviesService.Domain.Entities;
 
 namespace MoviesService.Application.Queries.GetMovie
 {
-    public class GetMovieHandler : IRequestHandler<GetMovieQuery, MovieDto>
+    public class GetMovieHandler : IRequestHandler<GetMovieQuery, MovieDto?>
     {
         private readonly IQueryMovieRepository _repository;
 
@@ -13,7 +13,7 @@ namespace MoviesService.Application.Queries.GetMovie
             _repository = repository;
         }
 
-        public async Task<MovieDto> Handle(GetMovieQuery query, CancellationToken cancellationToken)
+        public async Task<MovieDto?> Handle(GetMovieQuery query, CancellationToken cancellationToken)
         {
             var movie = await _repository.Get(query.Id);
             return movie;
