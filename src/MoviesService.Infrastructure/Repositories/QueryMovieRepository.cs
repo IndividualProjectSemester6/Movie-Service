@@ -19,7 +19,7 @@ namespace MoviesService.Infrastructure.Repositories
             return await _context.Movies.ToListAsync();
         }
 
-        public async Task<MovieDto> Get(Guid id)
+        public async Task<MovieDto?> Get(Guid id)
         {
             return await _context.Movies.FindAsync(id);
         }

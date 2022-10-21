@@ -24,16 +24,15 @@ namespace MoviesService.API.Controllers
         /// <summary>
         /// Retrieves all movies.
         /// </summary>
-        /// <returns>A list of Movies</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Movie>>> GetAll()
+        public async Task<ActionResult<IEnumerable<MovieViewModel>>> GetAll()
         {
             var query = new GetAllMoviesQuery();
             var result = await _mediator.Send(query);
-            List<Movie> movies = new List<Movie>();
+            List<MovieViewModel> movies = new List<MovieViewModel>();
             foreach (var movie in result)
             {
-                movies.Add(new Movie(movie.Id, movie.Name, movie.Description));
+                movies.Add(new MovieViewModel(movie.Id, movie.Name, movie.Description));
             }
 
             return Ok(movies);
@@ -43,14 +42,13 @@ namespace MoviesService.API.Controllers
         /// Retrieves a movie by ID.
         /// </summary>
         /// <param name="movieId"></param>
-        /// <returns>A Movie object</returns>
         [HttpGet("{movieId}")]
-        public async Task<ActionResult<Movie>> Get(Guid movieId)
+        public async Task<ActionResult<MovieViewModel>> Get(Guid movieId)
         {
             var result = await _mediator.Send(new GetMovieQuery(movieId));
             if (result != null)
             {
-                var movie = new Movie() { Id = result.Id, Name = result.Name, Description = result.Description };
+                var movie = new MovieViewModel() { Id = result.Id, Name = result.Name, Description = result.Description };
                 return Ok(movie);
             }
 
@@ -58,16 +56,13 @@ namespace MoviesService.API.Controllers
         }
 
         /// <summary>
-        /// Creates a movie entity.
+        /// Creates movie entity.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="description"></param>
-        /// <returns>HTTP Status Code 200 on success.</returns>
+        /// <param name="movie"></param>
         [HttpPost]
-        public async Task<ActionResult> Create(string name, string description)
+        public async Task<ActionResult> Create(CreateMovieViewModel movie)
         {
-            Movie movie = new Movie(Guid.NewGuid(), name, description);
-            var command = new CreateMovieCommand(movie.Id, movie.Name, movie.Description);
+            var command = new CreateMovieCommand(movie.Name, movie.Description);
             var response = await _mediator.Send(command);
             if (response == null)
                 return BadRequest();
@@ -76,12 +71,11 @@ namespace MoviesService.API.Controllers
         }
 
         /// <summary>
-        /// Updates movie entity
+        /// Updates movie entity.
         /// </summary>
         /// <param name="movie"></param>
-        /// <returns>Response object with the updated record</returns>
         [HttpPut]
-        public async Task<ActionResult> Update(Movie movie)
+        public async Task<ActionResult> Update(MovieViewModel movie)
         {
             var dto = new MovieDto() {Id = movie.Id, Name = movie.Name, Description = movie.Description};
             var command = new UpdateMovieCommand(dto);
@@ -95,16 +89,19 @@ namespace MoviesService.API.Controllers
         }
 
         /// <summary>
-        /// Deletes a movie entity
+        /// Deletes a movie entity.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns>HTTP Status Code 200</returns>
-        [HttpDelete]
-        public async Task<ActionResult> Delete(Guid id)
+        /// <param name="movieId"></param>
+        [HttpDelete("{movieId}")]
+        public async Task<ActionResult> Delete(Guid movieId)
         {
-            var command = new DeleteMovieCommand(id);
+            var command = new DeleteMovieCommand(movieId);
             var response = await _mediator.Send(command);
-            return Ok(response);
+            if (response == null)
+            {
+                return NotFound();
+            }
+            return Ok();
         }
     }
 }

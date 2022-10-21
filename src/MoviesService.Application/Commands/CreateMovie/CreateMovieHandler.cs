@@ -14,7 +14,7 @@ namespace MoviesService.Application.Commands.CreateMovie
 
         public async Task<MovieDto> Handle(CreateMovieCommand command, CancellationToken cancellationToken)
         {
-            var movie = new MovieDto() { Id = command.Id, Name = command.Name, Description = command.Description };
+            var movie = new MovieDto() { Id = Guid.NewGuid(), Name = command.Name, Description = command.Description };
             var created = await _repository.CreateMovie(movie);
 
             return created;
