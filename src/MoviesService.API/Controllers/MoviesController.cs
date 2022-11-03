@@ -62,6 +62,7 @@ namespace MoviesService.API.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(CreateMovieViewModel movie)
         {
+            Console.WriteLine(movie.Name, movie.Description);
             var command = new CreateMovieCommand(movie.Name, movie.Description);
             var response = await _mediator.Send(command);
             if (response == null)

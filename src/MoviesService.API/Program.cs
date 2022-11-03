@@ -32,7 +32,7 @@ builder.Services.AddScoped<IQueryMovieRepository, QueryMovieRepository>();
 // Add Entity Framework for SQL to project:
 ConfigurationManager configuration = builder.Configuration;
 builder.Services.AddDbContext<MovieDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), 
-    b => b.MigrationsAssembly("MoviesService.API"))
+    b => b.MigrationsAssembly("MoviesService.API").EnableRetryOnFailure())
 );
 
 var app = builder.Build();
