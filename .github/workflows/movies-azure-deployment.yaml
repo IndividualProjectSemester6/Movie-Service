@@ -2,7 +2,7 @@ name: movies-azure-deployment
 "on":
     push:
         branches:
-            - kube
+            - main
     workflow_dispatch: {}
 env:
     ACR_RESOURCE_GROUP: general-kinoroom-prod-westeu-001
