@@ -4,8 +4,9 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
-  build:
+  build-analyze:
     name: Build and analyze
+    needs: [build]
     runs-on: windows-latest
     steps:
       - name: Set up JDK 11
