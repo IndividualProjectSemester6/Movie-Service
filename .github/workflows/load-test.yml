@@ -1,10 +1,15 @@
 k6_load_test:
-  name: k6 load test
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout
-      uses: actions/checkout
-    - name: Run local k6 test
-      uses: grafana/k6-action@v0.2.0
-      with:
-        filename: ./tests/load_test.js
+  name: k6 Load Test
+  on:
+    push:
+      branches: [ "ci-cd-pipeline" ]
+  jobs:
+    run-test:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout
+        - name: Run local k6 test
+          uses: grafana/k6-action@v0.2.0
+          with:
+            filename: ./tests/load_test.js
