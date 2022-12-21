@@ -3,13 +3,13 @@ on:
     branches: ["main", "ci-cd-pipeline"]
 
 jobs:
-  setup-grafana-influx:
-    name: Set up Grafana & InfluxDB
-    runs-on: self-hosted
-    steps:
-      - name: Run Docker Compose
-        id: compose-image
-        run: docker compose -f "docker-compose.yml" up -d
+  # setup-grafana-influx:
+  #   name: Set up Grafana & InfluxDB
+  #   runs-on: self-hosted
+  #   steps:
+  #     - name: Run Docker Compose
+  #       id: compose-image
+  #       run: docker compose -f "docker-compose.yml" up -d
 
   k6_load_test:
     name: K6 Load Test
