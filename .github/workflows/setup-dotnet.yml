@@ -43,7 +43,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: "${{ secrets.REGISTRY_URL }}/movies-api:latest"
+          tags: ${{ secrets.REGISTRY_URL }}/movies-api:latest
     
       - name: Deploy to local Kubernetes cluster
         id: deploy-local-cluster
