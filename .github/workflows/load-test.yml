@@ -6,7 +6,6 @@ jobs:
   setup-grafana-influx:
     name: Set up Grafana & InfluxDB
     runs-on: self-hosted
-    needs: [build-docker-local]
     steps:
       - name: Run Docker Compose
         id: compose-image
