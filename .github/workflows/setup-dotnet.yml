@@ -33,7 +33,7 @@ jobs:
     - name: Build and push image to local registry
       id: build-docker-image
       run: |
-        docker build -t localhost:5000/movies-api:latest --label dockerfile-path=Dockerfile
+        docker build -t localhost:5000/movies-api:latest .
         docker push localhost:5000/movies-api:latest
     
     - name: Deploy to local Kubernetes cluster
