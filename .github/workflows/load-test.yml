@@ -3,30 +3,29 @@ on:
     branches: ["main", "ci-cd-pipeline"]
 
 jobs:
-  # setup-grafana-influx:
-  #   name: Set up Grafana & InfluxDB
-  #   runs-on: self-hosted
-  #   steps:
-  #     - name: Run Docker Compose
-  #       id: compose-image
-  #       run: docker compose -f "docker-compose.yml" up -d
-
-  k6_load_test:
-    name: K6 Load Test
+  setup-grafana-influx:
+    name: Set up Grafana & InfluxDB
     runs-on: self-hosted
-    #needs: [setup-grafana-influx]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
+      - name: Setup environment
+        run: ./scripts/run_load_test
 
-      - name: Run local k6 test
-        uses: grafana/k6-action@v0.2.0
-        with:
-          filename: ./tests/load_test.js
-          flags: --out json=results.json --out influxdb=http://localhost:8089/moviesservice 
+  # k6_load_test:
+  #   name: K6 Load Test
+  #   runs-on: self-hosted
+  #   needs: [setup-grafana-influx]
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v1
 
-      - name: Upload performance test results
-        uses: actions/upload-artifact@v3
-        with:
-          name: k6-report
-          path: results.json
+  #     - name: Run local k6 test
+  #       uses: grafana/k6-action@v0.2.0
+  #       with:
+  #         filename: ./tests/load_test.js
+  #         flags: --out json=results.json --out influxdb=http://localhost:8089/moviesservice 
+
+  #     - name: Upload performance test results
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: k6-report
+  #         path: results.json
