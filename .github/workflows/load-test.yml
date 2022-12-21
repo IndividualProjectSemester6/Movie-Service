@@ -4,7 +4,7 @@ on:
 
 jobs:
   run-load-test:
-    name: Set up Grafana & InfluxDB
+    name: Run load test
     runs-on: self-hosted
     steps:
       - name: Setup environment
