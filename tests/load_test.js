@@ -13,7 +13,9 @@ export const options = {
 
 // Script for load test:
 export default function() {
-    const res = http.get('http://10.136.0.115:80/movies-service/api/Movies')
-    //const res = http.get('http://20.238.149.147/movies-service/api/Movies');
+    // Local:
+    //const res = http.get('http://10.136.0.115:80/movies-service/api/Movies')
+    // Azure:
+    const res = http.get('http://20.238.149.147/movies-service/api/Movies');
     sleep(1);
 }

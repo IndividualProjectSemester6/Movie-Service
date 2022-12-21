@@ -3,6 +3,7 @@ name: movies-azure-deployment
     push:
         branches:
             - main
+            - ci-cd-pipeline
     workflow_dispatch: {}
 env:
     ACR_RESOURCE_GROUP: general-kinoroom-prod-westeu-001
@@ -17,6 +18,7 @@ env:
         ./manifests/autoscaler.yml
 jobs:
     buildImage:
+        needs: [k6_load_test]
         permissions:
             contents: read
             id-token: write

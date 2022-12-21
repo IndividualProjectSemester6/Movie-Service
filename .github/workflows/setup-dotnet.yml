@@ -8,9 +8,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -24,6 +22,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - uses: actions/checkout@v2
+    
   build-docker-local:
     needs: [build]
     runs-on: ubuntu-latest    
@@ -44,14 +43,3 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/movies-api:latest
-  deploy-kubernetes-local:
-    needs: [build-docker-local]
-    runs-on: self-hosted
-    steps:
-      - name: Deploy to local Kubernetes cluster
-        id: deploy-local-cluster
-        run: |
-          kubectl apply -f ./manifests/test-cluster/test_deployment.yml
-          kubectl apply -f ./manifests/test-cluster/test_service.yml
-          kubectl apply -f ./manifests/test-cluster/test_ingress.yml
-          kubectl apply -f ./manifests/test-cluster/test_autoscaler.yml

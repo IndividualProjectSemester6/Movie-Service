@@ -1,21 +1,45 @@
-version: '3.4'
+version: '3.3'
 
 services:
-  # Movies API
-  movies:
-    image: localhost:5000/moviesservice:V2
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+  # Service 1: InfluxDB
+  influxdb:
+    restart: unless-stopped
+    container_name: influxdb
+    image: influxdb:1.8-alpine
+    volumes:
+      - ./influxdb/etc:/etc/influxdb_s6
     ports:
-      - 5000:80
+      - 8089:8086
+    privileged: true
+    networks:
+      static-network:
 
-  # MySQL database
-  db:
-    container_name: "movies_db"
-    image: mcr.microsoft.com/mssql/server:2022-latest
+  # Service 2: Grafana
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: always
     ports:
-      - "1433:1433"
+      - 4001:4000
+      - 3000:3000
+    volumes:
+      - grafana_data:/var/lib/grafana_s6
     environment:
-      MSSQL_SA_PASSWORD: "Admin123!"
-      ACCEPT_EULA: "Y"
+      -  ASD
+      #- GF_INSTALL_PLUGINS=grafana-k6-app
+    networks:
+      static-network:
+    depends_on:
+      - influxdb
+
+# Internal network for the containers to use
+networks:
+  static-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.1.0/16
+
+# Data volumes for containers to store information in
+volumes:
+  grafana_data:

@@ -1,10 +1,19 @@
 on: [push]
 
 jobs:
-  k6_load_test:
-    name: k6 Load Test
+  setup-grafana-influx:
+    name: Set up Grafana & InfluxDB
     runs-on: self-hosted
+    needs: [build-docker-local]
+    steps:
+      - name: Run Docker Compose
+        id: compose-image
+        run: docker compose -f "docker-compose.yml" up -d
 
+  k6_load_test:
+    name: K6 Load Test
+    runs-on: self-hosted
+    needs: [setup-grafana-influx]
     steps:
       - name: Checkout
         uses: actions/checkout@v1
@@ -13,7 +22,7 @@ jobs:
         uses: grafana/k6-action@v0.2.0
         with:
           filename: ./tests/load_test.js
-          flags: --out json=results.json
+          flags: --out json=results.json --out influxdb=http://localhost:8089/moviesservice 
 
       - name: Upload performance test results
         uses: actions/upload-artifact@v3
