@@ -33,6 +33,7 @@ jobs:
     - name: Build and push image to local registry
       id: build-docker-image
       run: |
+        docker login -u="${{ secrets.DOCKER_USERNAME }}" -p="${{ secrets.DOCKER_PASSWORD }}"
         docker build "$GITHUB_WORKSPACE/" -f  "Dockerfile" -t ${{ secrets.REGISTRY_URL }}/movies-api:latest --label dockerfile-path=Dockerfile
         docker push ${{ secrets.REGISTRY_URL }}/movies-api:latest
     
