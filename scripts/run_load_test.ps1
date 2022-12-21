@@ -1,4 +1,3 @@
-docker-compose -f docker-compose.yml up -d
 Write-Output "--------------------------------------------------------------------------------------"
 Write-Output "Load testing with Grafana dashboard http://localhost:3000/"
 Write-Output "--------------------------------------------------------------------------------------"
