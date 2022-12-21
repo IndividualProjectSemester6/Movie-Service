@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -24,3 +24,22 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - uses: actions/checkout@v2
+  build-deploy-local:
+    needs: [build, test]
+    runs-on: self-hosted    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Build and push image to local registry
+      id: build-docker-image
+      run: |
+        docker build "$GITHUB_WORKSPACE/" -f  "Dockerfile" -t ${{ secrets.REGISTRY_URL }}/movies-api:latest --label dockerfile-path=Dockerfile
+        docker push ${{ secrets.REGISTRY_URL }}/movies-api:latest
+    
+    - name: Deploy to local Kubernetes cluster
+      id: deploy-local-cluster
+      run: |
+        kubectl apply -f ./manifests/deployment.yml
+        kubectl apply -f ./manifests/service.yml
+        kubectl apply -f ./manifests/ingress.yml
+        kubectl apply -f ./manifests/autoscaler.yml
