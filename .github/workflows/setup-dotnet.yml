@@ -24,7 +24,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - uses: actions/checkout@v2
-  build-deploy-local:
+  build-docker-local:
     needs: [build]
     runs-on: ubuntu-latest    
     steps:
@@ -44,7 +44,10 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/movies-api:latest
-    
+  deploy-kubernetes-local:
+    needs: [build-docker-local]
+    runs-on: self-hosted
+    steps:
       - name: Deploy to local Kubernetes cluster
         id: deploy-local-cluster
         run: |
