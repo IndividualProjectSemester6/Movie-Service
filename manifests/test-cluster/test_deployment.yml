@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: movies-api
-          image: localhost:5000/movies_api:latest
+          image: ${{ secrets.DOCKER_USERNAME }}/movies_api:latest
           imagePullPolicy: IfNotPresent
           ports:
           - containerPort: 80
