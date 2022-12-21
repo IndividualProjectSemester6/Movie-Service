@@ -3,29 +3,9 @@ on:
     branches: ["main", "ci-cd-pipeline"]
 
 jobs:
-  # setup-grafana-influx:
-  #   name: Set up Grafana & InfluxDB
-  #   runs-on: self-hosted
-  #   steps:
-  #     - name: Setup environment
-  #       run: ./scripts/run_load_test
-
-  k6_load_test:
+  setup-grafana-influx:
     name: K6 Load Test
-    runs-on: ubuntu-latest
-    #needs: [setup-grafana-influx]
+    runs-on: self-hosted
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-
-      - name: Run local k6 test
-        uses: grafana/k6-action@v0.2.0
-        with:
-          filename: ./tests/load_test.js
-          flags: --out json=results.json --out influxdb=http://localhost:8089/moviesservice 
-
-      - name: Upload performance test results
-        uses: actions/upload-artifact@v3
-        with:
-          name: k6-report
-          path: results.json
+      - name: Setup environment
+        run: ./scripts/run_load_test
