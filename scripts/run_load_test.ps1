@@ -1,4 +1,4 @@
-docker-compose -f docker-compose.yml up -d 
+docker-compose -f docker-compose.yml up -d --no-recreate
 Write-Output "--------------------------------------------------------------------------------------"
 Write-Output "Load testing with Grafana dashboard http://localhost:3000/"
 Write-Output "--------------------------------------------------------------------------------------"
