@@ -25,7 +25,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - uses: actions/checkout@v2
   build-deploy-local:
-    needs: [build, test]
+    needs: [build]
     runs-on: self-hosted    
     steps:
     - uses: actions/checkout@v3
