@@ -14,7 +14,7 @@ env:
         ./manifests/service.yml
         ./manifests/autoscaler.yml
 jobs:
-  setup-grafana-influx:
+  k6_load_test:
     name: K6 Load Test
     runs-on: self-hosted
     steps:
