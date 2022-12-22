@@ -1,11 +1,12 @@
-on:
-  push:
-    branches: ["main", "ci-cd-pipeline"]
+# name: Run K6 load test
+# on:
+#   push:
+#     branches: ["main", "ci-cd-pipeline"]
 
-jobs:
-  setup-grafana-influx:
-    name: K6 Load Test
-    runs-on: self-hosted
-    steps:
-      - name: Setup environment
-        run: ./scripts/run_load_test
+# jobs:
+#   setup-grafana-influx:
+#     name: K6 Load Test
+#     runs-on: self-hosted
+#     steps:
+#       - name: Setup environment
+#         run: ./scripts/run_load_test
