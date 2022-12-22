@@ -1,4 +1,5 @@
-name: Kinoroom Pipeline
+name: .NET
+
 on:
   push:
     branches: [ "main", "ci-cd-pipeline" ]
