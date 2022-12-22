@@ -11,6 +11,8 @@ services:
     ports:
       - 8089:8086
     privileged: true
+    environment:
+      - INFLUXDB_DB=moviesservice
     networks:
       static-network:
 

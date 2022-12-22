@@ -1,0 +1,9 @@
+apiVersion: 1
+
+datasources:
+  - name: moviesservice_metrics
+    type: influxdb
+    access: proxy
+    database: moviesservice
+    url: http://influxdb:8089
+    isDefault: true
