@@ -16,6 +16,7 @@ env:
         ./manifests/service.yml
         ./manifests/autoscaler.yml
 jobs:
+  # Build dotNET:
   build:
     runs-on: ubuntu-latest
     steps:
@@ -31,7 +32,8 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - uses: actions/checkout@v2
-    
+  
+  #Build local Docker Image for Snyk:
   build-docker-local:
     needs: [build]
     runs-on: ubuntu-latest    
@@ -53,6 +55,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/movies-api:latest
 
+  # Perform load test on the Kubernetes cluster with K6:
   k6_load_test:
     name: K6 Load Test
     needs: [build-docker-local]
@@ -61,6 +64,7 @@ jobs:
       - name: Setup environment
         run: ./scripts/run_load_test
 
+  # Build image & push to Azure registry:
   buildImageAzureRegistry:
       needs: [k6_load_test]
       permissions:
@@ -76,6 +80,7 @@ jobs:
           - name: Build and push image to ACR
             run: az acr build --image ${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.ACR_RESOURCE_GROUP }} -f ./Dockerfile ./
 
+  # Deploy to Azure cluster:
   deploy:
       permissions:
           actions: read
